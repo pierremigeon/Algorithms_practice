@@ -1,5 +1,11 @@
 #include "HeapSort.hpp"
 
+void	print_List(int list[], int len ) {
+	for ( int i = 0; i <= len; i++ )
+		std::cout << list[i] << std::endl;
+	std::cout << std::endl;
+}
+
 void	HeapSort::swap(int &a, int &b) {
 	int temp = a;
 	a = b;
@@ -12,7 +18,7 @@ int	HeapSort::get_max(int list[], int kid, int tail) {
 	return ( list[kid] > list[kid + 1] ? kid : kid + 1);
 }
 
-int	HeapSort::swap_large(int list[], int par, int kid, int tail) {
+int	HeapSort::swap_large(int list[], int kid, int par, int tail) {
 	int max = get_max(list, kid, tail);
 	if ( list[max] > list[par] )
 		swap(list[max], list[par]);
@@ -33,8 +39,10 @@ int	HeapSort::has_kids( int par, int tail ) {
 }
 
 void	HeapSort::heapify( int list[], int par, int tail ) {
-	int kid = ( par == 0 ) ? 1 : par * 2;
+	int kid = par * 2 + 1;
 
+	if (tail == 0)
+		return;
 	while ( has_kids(par, tail) ) {
 		if ( one_is_greater(list, kid, par, tail) )
 			par = swap_large(list, kid, par, tail);
@@ -44,20 +52,18 @@ void	HeapSort::heapify( int list[], int par, int tail ) {
 	}
 }
 
-
 void	HeapSort::makeMaxHeap( int list[], int len ) {	
 	for (int i = len; i >= 0; i-- )
 		heapify(list, i, len);
+	std::cout << "Maxheap is " << std::endl;
+	print_List(list, len);
 }
 
 void	HeapSort::_HeapSort(int list[], int len) {
 	int tail = --len;
-	makeMaxHeap(list, len);
+	makeMaxHeap(list, tail);
 	while ( tail > 0 ) {
-		swap(list[tail], list[0]);
-		heapify(list, 0, tail - 1 );
-		tail -= 1;
+		swap( list[tail], list[0] );
+		heapify( list, 0, --tail );
 	}
 }
-
-

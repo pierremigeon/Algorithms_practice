@@ -17,7 +17,7 @@ int	*generate_list(int size) {
 }
 
 int	main() {
-	int	length = 5;
+	int	length = 25;
 	int	*list = generate_list(length);
 
 	std::cout << "before sort: \n";
@@ -25,7 +25,5 @@ int	main() {
 	std::cout << "\nAfter sort:\n"; 
 	HeapSort::_HeapSort(list, length);
 	print_list(length, list);
-
-
 	return (0);
 }

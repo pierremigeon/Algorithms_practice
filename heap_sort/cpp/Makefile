@@ -8,6 +8,9 @@ all: main.cpp HeapSort.cpp
 run: $(PROG_NAME)
 	./$(PROG_NAME)
 
+debug: main.cpp HeapSort.cpp
+	c++ -Wall -Wextra -Werror -std=c++98 -g $^ -o $(PROG_NAME)
+	gdb $(PROG_NAME)
 edit1:
 	vi main.cpp
 
