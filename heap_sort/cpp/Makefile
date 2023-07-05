@@ -1,6 +1,6 @@
 PROG_NAME=HEAP_SORT
 
-all: main.cpp heapSort.cpp
+all: main.cpp HeapSort.cpp
 	@clear
 	@clear
 	c++ -Wall -Wextra -Werror -std=c++98 $^ -o $(PROG_NAME)
