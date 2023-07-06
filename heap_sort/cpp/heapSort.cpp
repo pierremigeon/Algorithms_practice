@@ -33,7 +33,7 @@ int	HeapSort::one_is_greater( int list[], int kid, int par, int tail) {
 }
 
 int	HeapSort::has_kids( int par, int tail ) {
-	if ( par * 2 <= tail )
+	if ( par * 2 + 1 <= tail )
 		return (1);
 	return (0);
 }
@@ -48,15 +48,13 @@ void	HeapSort::heapify( int list[], int par, int tail ) {
 			par = swap_large(list, kid, par, tail);
 		else
 			break;
-		kid = par * 2;
+		kid = par * 2 + 1;
 	}
 }
 
 void	HeapSort::makeMaxHeap( int list[], int len ) {	
-	for (int i = len; i >= 0; i-- )
+	for (int i = len; i >= 0; i-- ) 
 		heapify(list, i, len);
-	std::cout << "Maxheap is " << std::endl;
-	print_List(list, len);
 }
 
 void	HeapSort::_HeapSort(int list[], int len) {
