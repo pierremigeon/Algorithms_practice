@@ -1,11 +1,10 @@
-#include <iostream>
-#include "TreeNode.hpp"
+#include "BinaryTreeFuncs.hpp"
 
 void	makeBinaryTree(char	array[], int size, TreeNode &head) {
 	TreeNode *current = &head;
 	TreeNode *last;
 
-	for ( int i = 0; i < size; i++ ) {
+	for ( int i = 1; i < size; i++ ) {
 		current = &head;
 		while ( current ) {
 			last = current;

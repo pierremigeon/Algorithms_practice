@@ -1,16 +1,11 @@
-#include <iostream>
-#include "TreeNode.hpp"
+#include "BFS.hpp"
 
-struct node {
-	TreeNode	*n;
-	node		*next;
-	node		*last;
-} node;
-
-void	newQNode( TreeNode *t, node **head, node **tail ) {
+void	newQNode( TreeNode *t, qNode **tail ) {
 	if ( t == NULL )
 		return;
-	node	*out = new node;
+
+	qNode	*out = new qNode;
+
 	out->n = t;
 	out->next = *tail;
 	out->last = NULL; 
@@ -18,17 +13,15 @@ void	newQNode( TreeNode *t, node **head, node **tail ) {
 }
 
 void	breadthFirstTranverse( TreeNode *head ) {
-	node	*qHead;
-	node	*qTail = NULL;
-	
-	qHead->n = head;
-	qHead->next = NULL;
-	newQNode(head, qHead, qTail);
+	qNode	*qHead;
+	qNode	*qTail = NULL;
+
+	newQNode(head, &qHead);
 	qHead->last = qTail;
 	while ( qHead != NULL ) {
 		std::cout << qHead->n->c << std::endl;
-		newQNode(head->left);
-		newQNode(head->right);
-		head = head->last;
+		newQNode(head->left, &qTail);
+		newQNode(head->right, &qTail);
+		qHead = qHead->last;
 	}
 }
