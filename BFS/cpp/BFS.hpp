@@ -11,5 +11,6 @@ struct qNode {
 
 void	newQNode( TreeNode *t, qNode **tail );
 void	breadthFirstTranverse( TreeNode *head );
+int     sizeOfQueue( qNode *qHead );
 
 #endif

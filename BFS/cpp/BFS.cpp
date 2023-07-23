@@ -5,23 +5,40 @@ void	newQNode( TreeNode *t, qNode **tail ) {
 		return;
 
 	qNode	*out = new qNode;
-
 	out->n = t;
 	out->next = *tail;
 	out->last = NULL; 
+	if (*tail)
+		(*tail)->last = out;
 	*tail = out;
 }
 
+int	sizeOfQueue( qNode *qHead ) {
+	int	x = 0;
+
+	while (qHead) {
+		++x;
+		qHead = qHead->last;
+	}
+	return (x);
+}
+
 void	breadthFirstTranverse( TreeNode *head ) {
-	qNode	*qHead;
+	qNode	*qHead = NULL;
 	qNode	*qTail = NULL;
+	int	q_len = 0;
 
 	newQNode(head, &qHead);
-	qHead->last = qTail;
+	qTail = qHead;
 	while ( qHead != NULL ) {
-		std::cout << qHead->n->c << std::endl;
-		newQNode(head->left, &qTail);
-		newQNode(head->right, &qTail);
+		std::cout << qHead->n->c;
+		if ( q_len == 0 ) {
+			std::cout << "" << std::endl;
+			q_len = sizeOfQueue(qHead);
+		}
+		newQNode(qHead->n->left, &qTail);
+		newQNode(qHead->n->right, &qTail);
 		qHead = qHead->last;
+		q_len--;
 	}
 }

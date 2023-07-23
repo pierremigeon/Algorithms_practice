@@ -10,6 +10,16 @@ int	main() {
 	printInOrder(head);
 
 	std::cout << "~~~~~< *_BFS NEXT_* >~~~~~~~" << std::endl;
+	breadthFirstTranverse(head);
+
+
+	std::cout << "~~~~~< *_ARRAY2_* >~~~~~~~" << std::endl;
+	char array2[] = {'a', 'f', 'c', 'b', 'a', 'x', 'l'};
+	makeBinaryTree(array2, sizeof(array2) / sizeof(char), *head);
+	printInOrder(head);
+
+	std::cout << "~~~~~< *_ARRAY2_BFT_* >~~~~~~~" << std::endl;	
+	breadthFirstTranverse(head);
 
 	return (0);
 }
