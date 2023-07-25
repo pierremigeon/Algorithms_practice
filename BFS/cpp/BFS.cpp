@@ -23,6 +23,13 @@ int	sizeOfQueue( qNode *qHead ) {
 	return (x);
 }
 
+qNode   *popFree(qNode *current) {
+	qNode	*previous = current;
+	current = current->last;
+	delete previous;
+	return (current);
+}
+
 void	breadthFirstTranverse( TreeNode *head ) {
 	qNode	*qHead = NULL;
 	qNode	*qTail = NULL;
@@ -37,8 +44,8 @@ void	breadthFirstTranverse( TreeNode *head ) {
 			q_len = sizeOfQueue(qHead);
 		}
 		newQNode(qHead->n->left, &qTail);
-		newQNode(qHead->n->right, &qTail);
-		qHead = qHead->last;
+		newQNode(qHead->n->right, &qTail);	
+		qHead = popFree(qHead);
 		q_len--;
 	}
 }

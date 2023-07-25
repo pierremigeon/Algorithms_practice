@@ -11,10 +11,12 @@ int	main() {
 
 	std::cout << "~~~~~< *_BFS NEXT_* >~~~~~~~" << std::endl;
 	breadthFirstTranverse(head);
+	deleteTree(head);
 
 
 	std::cout << "~~~~~< *_ARRAY2_* >~~~~~~~" << std::endl;
 	char array2[] = {'a', 'f', 'c', 'b', 'a', 'x', 'l'};
+	head = TreeNode::newNode(array2[0]);
 	makeBinaryTree(array2, sizeof(array2) / sizeof(char), *head);
 	printInOrder(head);
 

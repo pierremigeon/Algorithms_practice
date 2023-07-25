@@ -1,5 +1,13 @@
 #include "BinaryTreeFuncs.hpp"
 
+void	deleteTree( TreeNode *head ) {
+	if ( head == NULL )
+		return;
+	deleteTree( head->left );
+	deleteTree( head->right);
+	delete head;
+}
+
 void	makeBinaryTree(char	array[], int size, TreeNode &head) {
 	TreeNode *current = &head;
 	TreeNode *last;
@@ -22,4 +30,3 @@ void	printInOrder( TreeNode *head ) {
 	if ( head->right )
 		printInOrder( head->right );
 }
-
