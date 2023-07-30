@@ -18,6 +18,6 @@ int	check_sort( int list[], int len ) {
 	len -= 1;
 	for (int i = 0; i < len; ++i)
 		if ( list[i] > list[i + 1])
-			return (1);
-	return (0);
+			return (0);
+	return (1);
 }

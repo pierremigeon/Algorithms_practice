@@ -1,8 +1,6 @@
 #include "treeNode.hpp"
 
-treeNode::treeNode( int _list[], int _len) : list(list), len(_len) { }
-
-
+treeNode::treeNode( int _list[], int _len) : list(_list), len(_len) { }
 
 treeNode	*treeNode::getLeft( void ) const {
 	return this->left;
@@ -12,7 +10,7 @@ treeNode	*treeNode::getRight( void ) const {
 	return this->right;
 }
 
-int		[]treeNode::getlist( void ) const {
+int		*treeNode::getlist( void ) const {
 	return this->list;
 }
 

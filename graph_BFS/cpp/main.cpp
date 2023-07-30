@@ -1,5 +1,5 @@
 #include "list_funcs.hpp"
-#include "graph_and_list_funcs.hpp"
+#include "graphNode.hpp"
 
 int	main() {
 	int length = 10;
@@ -8,7 +8,7 @@ int	main() {
 //	std::cout << "before sort: \n";
 //	print_list(length, list);
 
-	
+	graphNode::graph(list, length);	
 
 
 //	std::cout << "\nAfter sort:\n"; 
@@ -18,4 +18,3 @@ int	main() {
 //		std::cout << "The list of length " << length << " wasn't sorted correctly" << std::endl;
 	return (0);
 }
-

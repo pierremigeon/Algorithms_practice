@@ -4,7 +4,7 @@
 //binary list struct
 class treeNode {
 	private:
-	int		list[];
+	int		*list;
 	int		len;
 	treeNode	*left;
 	treeNode	*right;
@@ -12,7 +12,7 @@ class treeNode {
 	public:
 	treeNode	*getLeft() const;
 	treeNode	*getRight() const;
-	int		[]getlist() const;
+	int		*getlist() const;
 	int		getInt() const;
 	treeNode(int list[], int len);
 	void    	setLeft(treeNode *target);
