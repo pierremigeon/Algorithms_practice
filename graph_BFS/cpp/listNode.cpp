@@ -6,11 +6,12 @@ listNode::listNode( void ) : value(0), next(NULL) { }
 
 int	listNode::checkSort( listNode *head ) {
 	listNode	*start = head;
-
-	while ( head->next != start ) {
-		if ( head->value > head->next->value )
-			return (0);
-		head = head->next;
+	if ( head != NULL ) {
+		do {
+			if ( head->value > head->next->value )
+				return (0);
+			head = head->next;
+		} while (head->next != start );
 	}
 	return (1);
 }
@@ -32,13 +33,11 @@ void    listNode::pushOrPop( listNode **l1Head, listNode **l2Head ) {
 	if ( *l2Head == NULL )
 		return;
 	last2->next = (*l2Head)->next;
-	if ( last1 ) { 
+	(*l2Head)->next = (*l1Head) ? *l1Head : *l2Head;
+	if ( last1 )
 		last1->next = *l2Head;
-		(*l2Head)->next = *l1Head;
-	} else {
-		*l1Head = *l2Head;
-		(*l2Head)->next = *l2Head;
-	}
+	*l1Head = *l2Head;
+	*l2Head = last2->next;
 }
 
 void    listNode::shift( listNode **Head ) {

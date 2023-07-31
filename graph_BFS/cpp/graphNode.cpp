@@ -31,7 +31,7 @@ graphNode::graphNode( graphNode &g, int operation ) {
 	else
 		( operation == 1 ) ? listNode::pushOrPop(&this->H2, &this->H1 ) \
 			: listNode::pushOrPop(&this->H1, &this->H2);
-	this->isSorted = !listNode::checkSort(this->H1);
+	this->isSorted = listNode::checkSort(this->H1);
 }
 
 graphNode::graphNode( int list[], int len ) {
@@ -55,10 +55,34 @@ int	checkCache( graphNode &g ) {
 }
 */
 
+void	printList( listNode *l1, listNode *l2 ) {
+	listNode *h1 = l1;
+	listNode *h2 = l2;
+	int flag = 1;
+
+	std::cout << "H1		H2" << std::endl;
+	while ((l1 && (l1 != h1 || flag )) || ((l2 && (l2->next != h2 || flag) )) ) {
+		if (l1 && (l1 != h1 || flag ))
+			std::cout << l1->value;
+		else
+			std::cout << "		";
+		if (l2 && (l2 != h2 || flag ))
+			std::cout << "		" << l2->value << std::endl;
+		else
+			std::cout << "  " << std::endl;
+		if (l1 && (l1 != h1 || flag ))
+			l1 = l1->next;
+		if (l2 && (l2 != h2 || flag ))
+			l2 = l2->next;
+		flag = 0;
+	}
+}
+
 void	graphNode::graphify( graphNode *g ) {
 	//if ( checkCache( g ) )
 	//	return;
-	while ( g->isSorted == 0 ) {
+	if ( g->isSorted == 0 ) {
+		printList(g->H1, g->H2);
 		g->shift = new graphNode(*g, 0);
 		graphify( g->shift );
 		g->pop = new graphNode(*g, 1);;
