@@ -5,15 +5,10 @@ all: main.cpp list_funcs.cpp graphNode.cpp listNode.cpp treeNode.cpp
 	@clear
 	c++ -Wall -Wextra -Werror -std=c++98 $^ -o $(PROG_NAME)
 
-graph: main.cpp list_funcs.cpp graphNode.cpp linkedList.cpp
-	@clear
-	@clear
-	c++ -Wall -Wextra -Werror -std=c++98 $^ -o $(PROG_NAME)
-
 run: $(PROG_NAME)
 	./$(PROG_NAME)
 
-debug: main.cpp list_funcs.cpp graphNode.cpp linkedList.cpp treeNode.cpp
+debug: main.cpp list_funcs.cpp graphNode.cpp listNode.cpp treeNode.cpp
 	c++ -Wall -Wextra -Werror -std=c++98 -g $^ -o $(PROG_NAME)
 	lldb $(PROG_NAME)
 

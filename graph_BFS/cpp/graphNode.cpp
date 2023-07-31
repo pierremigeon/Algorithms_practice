@@ -2,16 +2,21 @@
 #include "listNode.hpp"
 
 listNode	*graphNode::copyList( listNode *l ) {
-	listNode	*newList;
-	listNode	*current;
+	if ( l == NULL )
+		return l;
+	listNode	*head_original = l;
+	listNode	*copy = new listNode(l->value);
+	listNode	*head_copy = copy;
 
-	newList = l;
-	while ( l ) {
-		current = new listNode(l->value, l->next);
-		current = current->next;
+	l = l->next;
+	while ( l != head_original ) {
+		copy->next = new listNode(l->value);
+		copy = copy->next;
 		l = l->next;
+		if ( l == head_original )
+			copy->next = head_copy;
 	}
-	return newList;
+	return copy->next;
 }
 
 graphNode::graphNode( graphNode &g, int operation ) {
@@ -36,7 +41,7 @@ graphNode::graphNode( int list[], int len ) {
 	this->pop = NULL;
 	this->H1 = listNode::makeLinkedList(list, len);
 	this->H2 = NULL;
-	this->isSorted = !check_sort(list, len);
+	this->isSorted = check_sort(list, len);
 }
 
 /*
@@ -53,7 +58,6 @@ int	checkCache( graphNode &g ) {
 void	graphNode::graphify( graphNode *g ) {
 	//if ( checkCache( g ) )
 	//	return;
-	return;
 	while ( g->isSorted == 0 ) {
 		g->shift = new graphNode(*g, 0);
 		graphify( g->shift );

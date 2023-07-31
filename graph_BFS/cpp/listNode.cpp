@@ -1,13 +1,16 @@
 #include "listNode.hpp"
 
-listNode::listNode( int _value, listNode *_next ) : value(_value), next(_next) { }
+listNode::listNode( int _value ) : value(_value), next(NULL) { }
 listNode::listNode( void ) : value(0), next(NULL) { }
 
 
 int	listNode::checkSort( listNode *head ) {
-	while ( head->next ) {
+	listNode	*start = head;
+
+	while ( head->next != start ) {
 		if ( head->value > head->next->value )
 			return (0);
+		head = head->next;
 	}
 	return (1);
 }
@@ -23,16 +26,19 @@ listNode	*listNode::last( listNode *H ) {
 }
 
 void    listNode::pushOrPop( listNode **l1Head, listNode **l2Head ) {
-	listNode *last1 = last ( *l1Head );
-	listNode *last2 = last ( *l2Head );
+	listNode *last1 = last( *l1Head );
+	listNode *last2 = last( *l2Head );
 
 	if ( *l2Head == NULL )
 		return;
-	if ( last1 == NULL )
-		last1 = *l2Head;
 	last2->next = (*l2Head)->next;
-	last1->next = *l2Head;
-	(*l2Head)->next = *l1Head;
+	if ( last1 ) { 
+		last1->next = *l2Head;
+		(*l2Head)->next = *l1Head;
+	} else {
+		*l1Head = *l2Head;
+		(*l2Head)->next = *l2Head;
+	}
 }
 
 void    listNode::shift( listNode **Head ) {
@@ -47,10 +53,9 @@ listNode	*listNode::makeLinkedList(int list[], int len) {
 
 	for ( int i = 0; i < len; i++ ) {
 		current->value = list[i];
-		current->next = new listNode();
+		current->next = (i == len - 1) ? head : new listNode();
 		current = current->next;
 	}
-	current->next = head;
 	return (head);
 }
 

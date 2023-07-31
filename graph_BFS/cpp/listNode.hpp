@@ -8,7 +8,7 @@ class 	listNode {
 	int		value;
 	listNode	*next;
 	listNode( void );
-	listNode( int _value, listNode *_next );
+	listNode( int _value );
 
 	static	listNode	*makeLinkedList(int list[], int len);
 	static	int		checkListSorted(listNode *head);

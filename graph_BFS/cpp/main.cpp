@@ -2,7 +2,7 @@
 #include "graphNode.hpp"
 
 int	main() {
-	int length = 10;
+	int length = 4;
 	int	*list = generate_list(length);
 
 //	std::cout << "before sort: \n";
