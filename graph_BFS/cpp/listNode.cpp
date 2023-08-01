@@ -21,8 +21,9 @@ listNode	*listNode::last( listNode *H ) {
 
 	if ( H == NULL )
 		return ( NULL );
-	while ( last->next != H )
+	do {
 		last = last->next;
+	} while ( last->next != H );
 	return last;
 }
 
@@ -37,7 +38,7 @@ void    listNode::pushOrPop( listNode **l1Head, listNode **l2Head ) {
 	if ( last1 )
 		last1->next = *l2Head;
 	*l1Head = *l2Head;
-	*l2Head = last2->next;
+	*l2Head = (last2 == *l2Head) ? NULL : last2->next;
 }
 
 void    listNode::shift( listNode **Head ) {

@@ -5,18 +5,23 @@ listNode	*graphNode::copyList( listNode *l ) {
 	if ( l == NULL )
 		return l;
 	listNode	*head_original = l;
-	listNode	*copy = new listNode(l->value);
-	listNode	*head_copy = copy;
+	listNode	*copy = NULL;
+	listNode	*head_copy;
 
-	l = l->next;
-	while ( l != head_original ) {
-		copy->next = new listNode(l->value);
+	do {
+		if ( copy == NULL ) {
+			copy = new listNode(l->value);
+			copy->next = copy;
+			head_copy = copy;
+		}
+		else 
+			copy->next = new listNode(l->value);
 		copy = copy->next;
 		l = l->next;
 		if ( l == head_original )
 			copy->next = head_copy;
-	}
-	return copy->next;
+	} while ( l != head_original );
+	return head_copy;
 }
 
 graphNode::graphNode( graphNode &g, int operation ) {
@@ -31,7 +36,7 @@ graphNode::graphNode( graphNode &g, int operation ) {
 	else
 		( operation == 1 ) ? listNode::pushOrPop(&this->H2, &this->H1 ) \
 			: listNode::pushOrPop(&this->H1, &this->H2);
-	this->isSorted = listNode::checkSort(this->H1);
+	this->isSorted = listNode::checkSort(this->H1) && this->H2 == NULL;
 }
 
 graphNode::graphNode( int list[], int len ) {
@@ -61,7 +66,7 @@ void	printList( listNode *l1, listNode *l2 ) {
 	int flag = 1;
 
 	std::cout << "H1		H2" << std::endl;
-	while ((l1 && (l1 != h1 || flag )) || ((l2 && (l2->next != h2 || flag) )) ) {
+	while ((l1 && (l1 != h1 || flag )) || ((l2 && (l2 != h2 || flag) )) ) {
 		if (l1 && (l1 != h1 || flag ))
 			std::cout << l1->value;
 		else
@@ -83,8 +88,8 @@ void	graphNode::graphify( graphNode *g ) {
 	//	return;
 	if ( g->isSorted == 0 ) {
 		printList(g->H1, g->H2);
-		g->shift = new graphNode(*g, 0);
-		graphify( g->shift );
+		//g->shift = new graphNode(*g, 0);
+		//graphify( g->shift );
 		g->pop = new graphNode(*g, 1);;
 		graphify( g->pop );
 		g->push = new graphNode(*g, 2);
