@@ -3,20 +3,14 @@
 
 //binary list struct
 class treeNode {
-	private:
-	int		*list;
-	int		len;
+	public:
+	listNode	*H1;
+	listNode	*H2;
 	treeNode	*left;
 	treeNode	*right;
 
-	public:
-	treeNode	*getLeft() const;
-	treeNode	*getRight() const;
-	int		*getlist() const;
-	int		getInt() const;
-	treeNode(int list[], int len);
-	void    	setLeft(treeNode *target);
-	void    	setRight(treeNode *target);
+	treeNode( void );
+	treeNode( listNode *H1, listNode *H2 );
 };
 
 #endif
