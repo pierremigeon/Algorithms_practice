@@ -8,8 +8,9 @@
 //Graph struct
 class	graphNode {
 	public:
-	static	treeNode	&cache_head;
+	static	treeNode	*cacheHead;
 	bool			isSorted;
+	bool			del;
 	listNode		*H1;
 	listNode		*H2;
 	graphNode		*shift;

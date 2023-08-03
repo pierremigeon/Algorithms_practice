@@ -3,43 +3,60 @@
 treeNode::treeNode( listNode *_H1, listNode *_H2 ) : H1(_H1), H2(_H2), left(NULL), right(NULL) { } 
 treeNode::treeNode( void ) : H1( NULL ), H2( NULL ), left( NULL ), right( NULL ) { } 
 
-int	compareLists(treeNode *new, treeNode *old) {
-	listNode	*head1;
-	listNode	*head2;
-	listNode	*h1;
-	listNode	*h2;
+int	compareLists(listNode *HA, listNode *HB) {
+	listNode	*headA;
+	listNode	*headB;
+	listNode	*hA;
+	listNode	*hB;
 
-	head1 = h1 = new->H1;
-	head2 = h2 = old->H1;
-	if ( new->H1 && old->H1) {
+	headA = hA = HA;
+	headB = hB = HB;
+	if ( hA && hB) {
 		do {
-			
+			if ( hA->value > hB->value )
+				return ( 1 );
+			else if ( hA->value < hB->value )
+				return ( 0 );
+			hA = hA->next;
+			hB = hB->next;
+		} while ( hA != headA && hB != headB );
+	} else if ( ( !hA && !hB ) || ( hA == headA && hB == headB ) )
+		return ( 2 );
+	return (( !hB ) ? 1 : 0);
+}
 
-		} while ( h1 != head1 && h2 != head2);
+treeNode	*compareNodes(treeNode *new_, treeNode *old, int *branch) {
+	if (( *branch = compareLists(new_->H1, old->H1)) > 1 )
+		*branch = compareLists(new_->H2, old->H2);
+	if ( *branch == 2 )
+		return ( NULL );
+	if ( *branch == 0)
+		return ( old->left );
+	return ( old->right );
+}
+
+int	treeNode::storeNode(treeNode **current, listNode *H1, listNode *H2) {
+	treeNode	*newNode = new treeNode(H1, H2);
+	treeNode	*next;
+	int		branchFlag = 0;
+	if ( *current == NULL ) {
+		*current = newNode;
+		return ( 0 );
 	}
-	if ( h1 && h1 == head1 || h2 && h2 != head2 )
-		return ( );
-	
-}
-
-treeNode	*compareNodes(treeNode *new, treeNode *old) {
-	if ( compareLists() )
-
-
-}
-
-
-treeNode::storeNode(treeNode &cache_head, listNode *H1, listNode *H2) {
-	treeNode	newNode = new treeNode(H1, H2);
-	
-	while ( ) {
-		current = compareNodes(new, current)
-
+	while ( 1 ) {
+		next = compareNodes(newNode, *current, &branchFlag);
+		if (branchFlag == 2)
+			return (1);
+		if ( next == NULL ) {
+			if ( !branchFlag )
+				(*current)->left = newNode;
+			else
+				(*current)->right = newNode;
+			return ( 0 );
+		}
+		*current = (branchFlag) ? (*current)->left : (*current)->right;
 	}
-	
 }
-
-
 
 
 /*

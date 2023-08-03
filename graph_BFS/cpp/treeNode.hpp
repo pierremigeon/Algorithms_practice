@@ -1,7 +1,8 @@
 #ifndef TREENODE_H 
 # define TREENODE_H
+# include "listNode.hpp"
 
-//binary list struct
+
 class treeNode {
 	public:
 	listNode	*H1;
@@ -11,6 +12,8 @@ class treeNode {
 
 	treeNode( void );
 	treeNode( listNode *H1, listNode *H2 );
+	static	int	storeNode(treeNode **current, listNode *H1, listNode *H2);
+
 };
 
 #endif

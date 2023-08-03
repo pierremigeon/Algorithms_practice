@@ -1,7 +1,7 @@
 #include "graphNode.hpp"
 #include "listNode.hpp"
 
-treeNode        &graphNode::cache_head = new treeNode();
+treeNode	*graphNode::cacheHead;
 
 listNode	*graphNode::copyList( listNode *l ) {
 	if ( l == NULL )
@@ -38,7 +38,7 @@ graphNode::graphNode( graphNode &g, int operation ) {
 		( operation == 1 ) ? listNode::pushOrPop(&this->H2, &this->H1 ) \
 			: listNode::pushOrPop(&this->H1, &this->H2);
 	this->isSorted = listNode::checkSort(this->H1) && this->H2 == NULL;
-	this->delete = listNode::storeNode(this->cache_head, this->H1, this->H2) \
+	this->del = treeNode::storeNode(&this->cacheHead, this->H1, this->H2) \
 			* !this->isSorted;
 }
 
@@ -48,7 +48,7 @@ graphNode::graphNode( int list[], int len ) {
 	this->pop = NULL;
 	this->H1 = listNode::makeLinkedList(list, len);
 	this->H2 = NULL;
-	listNode::storeNode(this->cache_head, this->H1, this->H2);
+	this->del = treeNode::storeNode(&this->cacheHead, this->H1, this->H2);
 	this->isSorted = check_sort(list, len);
 }
 
@@ -87,17 +87,17 @@ void	printList( listNode *l1, listNode *l2 ) {
 }
 
 void	graphNode::graphify( graphNode *g ) {
-	//if ( checkCache( g ) )
-	//	return;
-	if ( g->isSorted == 0 && g->delete == 0) {
+	if ( g->isSorted == 0 && g->del == 0) {
 		printList(g->H1, g->H2);
-		//g->shift = new graphNode(*g, 0);
-		//graphify( g->shift );
+		g->shift = new graphNode(*g, 0);
+		graphify( g->shift );
 		g->pop = new graphNode(*g, 1);;
 		graphify( g->pop );
 		g->push = new graphNode(*g, 2);
 		graphify( g->push );
 	}
+	if ( g->del == 0 )
+		delete g;
 }
 
 void	graphNode::graph( int list[], int len ) {
