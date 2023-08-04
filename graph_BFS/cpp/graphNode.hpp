@@ -9,13 +9,11 @@
 class	graphNode {
 	public:
 	static	treeNode	*cacheHead;
+	graphNode		*next[3];
 	bool			isSorted;
 	bool			del;
 	listNode		*H1;
 	listNode		*H2;
-	graphNode		*shift;
-	graphNode		*pop;
-	graphNode		*push;
 	graphNode( void );
 	graphNode( graphNode &g, int operation );
 	graphNode( int list[], int len );

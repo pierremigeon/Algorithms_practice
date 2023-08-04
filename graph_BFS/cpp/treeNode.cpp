@@ -20,7 +20,9 @@ int	compareLists(listNode *HA, listNode *HB) {
 			hA = hA->next;
 			hB = hB->next;
 		} while ( hA != headA && hB != headB );
-	} else if ( ( !hA && !hB ) || ( hA == headA && hB == headB ) )
+		if ( hA == headA && hB == headB )
+			return ( 2 );
+	} else if ( !hA && !hB )
 		return ( 2 );
 	return (( !hB ) ? 1 : 0);
 }
@@ -35,26 +37,28 @@ treeNode	*compareNodes(treeNode *new_, treeNode *old, int *branch) {
 	return ( old->right );
 }
 
-int	treeNode::storeNode(treeNode **current, listNode *H1, listNode *H2) {
+int	treeNode::storeNode(treeNode **treeHead, listNode *H1, listNode *H2) {
 	treeNode	*newNode = new treeNode(H1, H2);
+	treeNode	*current = *treeHead;
 	treeNode	*next;
 	int		branchFlag = 0;
-	if ( *current == NULL ) {
-		*current = newNode;
+
+	if ( current == NULL ) {
+		*treeHead = newNode;
 		return ( 0 );
 	}
 	while ( 1 ) {
-		next = compareNodes(newNode, *current, &branchFlag);
+		next = compareNodes(newNode, current, &branchFlag);
 		if (branchFlag == 2)
 			return (1);
 		if ( next == NULL ) {
 			if ( !branchFlag )
-				(*current)->left = newNode;
+				current->left = newNode;
 			else
-				(*current)->right = newNode;
+				current->right = newNode;
 			return ( 0 );
 		}
-		*current = (branchFlag) ? (*current)->left : (*current)->right;
+		current = next;
 	}
 }
 

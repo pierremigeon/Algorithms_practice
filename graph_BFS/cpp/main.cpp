@@ -2,9 +2,12 @@
 #include "graphNode.hpp"
 
 int	main() {
-	int length = 4;
-	int	*list = generate_list(length);
+	//int length = 3;
+	//int	*list = generate_list(length);
 
+	int length = 2;
+	int list[] = { 69, 42 };
+	
 //	std::cout << "before sort: \n";
 //	print_list(length, list);
 

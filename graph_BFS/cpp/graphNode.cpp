@@ -27,9 +27,8 @@ listNode	*graphNode::copyList( listNode *l ) {
 }
 
 graphNode::graphNode( graphNode &g, int operation ) {
-	this->shift = NULL;
-	this->push = NULL;
-	this->pop = NULL;
+	for ( int i = 0; i < 3; i++ )
+		this->next[i] = NULL;
 	this->H1 = copyList(g.H1);
 	this->H2 = copyList(g.H2);
 	if ( operation == 0 )
@@ -43,9 +42,8 @@ graphNode::graphNode( graphNode &g, int operation ) {
 }
 
 graphNode::graphNode( int list[], int len ) {
-	this->shift = NULL;
-	this->push = NULL;
-	this->pop = NULL;
+	for ( int i = 0; i < 3; i++ )
+		this->next[i] = NULL;
 	this->H1 = listNode::makeLinkedList(list, len);
 	this->H2 = NULL;
 	this->del = treeNode::storeNode(&this->cacheHead, this->H1, this->H2);
@@ -87,16 +85,19 @@ void	printList( listNode *l1, listNode *l2 ) {
 }
 
 void	graphNode::graphify( graphNode *g ) {
-	if ( g->isSorted == 0 && g->del == 0) {
-		printList(g->H1, g->H2);
-		g->shift = new graphNode(*g, 0);
-		graphify( g->shift );
-		g->pop = new graphNode(*g, 1);;
-		graphify( g->pop );
-		g->push = new graphNode(*g, 2);
-		graphify( g->push );
+
+	for ( int i = 0; i < 3 && g->isSorted == 0 && g->del == 0; i++ ) {
+		printList ( g->H1, g->H2 );
+		g->next[i] = new graphNode ( *g, i );
+		graphify ( g->next[i] );
 	}
-	if ( g->del == 0 )
+
+
+		//g->pop = new graphNode(*g, 1);;
+		//graphify( g->pop );
+		//g->push = new graphNode(*g, 2);
+		//graphify( g->push );
+	if ( g->del == 1 )
 		delete g;
 }
 
