@@ -91,14 +91,11 @@ void	graphNode::graphify( graphNode *g ) {
 		g->next[i] = new graphNode ( *g, i );
 		graphify ( g->next[i] );
 	}
-
-
-		//g->pop = new graphNode(*g, 1);;
-		//graphify( g->pop );
-		//g->push = new graphNode(*g, 2);
-		//graphify( g->push );
+	//if ( g->isSorted )
+	//	printList ( g->H1, g->H2 );
 	if ( g->del == 1 )
 		delete g;
+
 }
 
 void	graphNode::graph( int list[], int len ) {

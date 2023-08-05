@@ -42,7 +42,8 @@ void    listNode::pushOrPop( listNode **l1Head, listNode **l2Head ) {
 }
 
 void    listNode::shift( listNode **Head ) {
-	*Head = (*Head)->next;
+	if ( *Head != NULL )
+		*Head = (*Head)->next;
 }
 
 listNode	*listNode::makeLinkedList(int list[], int len) {
