@@ -28,13 +28,10 @@ int	compareLists(listNode *HA, listNode *HB) {
 }
 
 treeNode	*compareNodes(treeNode *new_, treeNode *old, int *branch) {
-	if (( *branch = compareLists(new_->H1, old->H1)) > 1 )
-		*branch = compareLists(new_->H2, old->H2);
-	if ( *branch == 2 )
-		return ( NULL );
-	if ( *branch == 0)
-		return ( old->left );
-	return ( old->right );
+	if (( *branch = compareLists(new_->H1, old->H1)) == 2 )
+		if ((*branch = compareLists(new_->H2, old->H2)) == 2 )
+			return ( NULL );
+	return ( *branch ? old->right : old->left);
 }
 
 int	treeNode::storeNode(treeNode **treeHead, listNode *H1, listNode *H2) {
