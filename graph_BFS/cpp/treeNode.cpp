@@ -1,6 +1,11 @@
 #include "treeNode.hpp"
 
-treeNode::treeNode( listNode *_H1, listNode *_H2 ) : H1(_H1), H2(_H2), left(NULL), right(NULL) { } 
+treeNode::treeNode( listNode *_H1, listNode *_H2 ) : left(NULL), right(NULL) {
+	this->H1 = listNode::copyList(_H1);
+	this->H2 = listNode::copyList(_H2);
+} 
+
+
 treeNode::treeNode( void ) : H1( NULL ), H2( NULL ), left( NULL ), right( NULL ) { } 
 
 int	compareLists(listNode *HA, listNode *HB) {

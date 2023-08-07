@@ -60,3 +60,26 @@ listNode	*listNode::makeLinkedList(int list[], int len) {
 	return (head);
 }
 
+listNode	*listNode::copyList( listNode *l ) {
+	if ( l == NULL )
+		return l;
+	listNode	*head_original = l;
+	listNode	*copy = NULL;
+	listNode	*head_copy;
+
+	do {
+		if ( copy == NULL ) {
+			copy = new listNode(l->value);
+			copy->next = copy;
+			head_copy = copy;
+		}
+		else 
+			copy->next = new listNode(l->value);
+		copy = copy->next;
+		l = l->next;
+		if ( l == head_original )
+			copy->next = head_copy;
+	} while ( l != head_original );
+	return head_copy;
+}
+

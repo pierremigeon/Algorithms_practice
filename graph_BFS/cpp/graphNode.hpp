@@ -5,11 +5,10 @@
 # include "list_funcs.hpp"
 # include "listNode.hpp"
 
-//Graph struct
 class	graphNode {
 	public:
 	static	treeNode	*cacheHead;
-	graphNode		*next[3];
+	graphNode		*next[4];
 	bool			isSorted;
 	bool			del;
 	listNode		*H1;
@@ -20,7 +19,7 @@ class	graphNode {
 	//graph functions
 	static	graphNode	*newGNode( listNode *l1Head, listNode *l2Head, int operation );
 	static	void		graph( int list[], int len );
-	static	listNode	*copyList( listNode *l ); 
+	//static	listNode	*copyList( listNode *l ); 
 	//int	checkCache( graphNode &g );
 	static	void		graphify(graphNode *gHead);
 };

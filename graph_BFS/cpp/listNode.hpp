@@ -21,6 +21,7 @@ class 	listNode {
 	static	listNode        *last( listNode *H );
 	static	int		checkSort( listNode *head );
 	static	void		pushOrPop( listNode **l1Head, listNode **l2Head );
+	static	listNode	*copyList( listNode *l );
 };
 
 #endif

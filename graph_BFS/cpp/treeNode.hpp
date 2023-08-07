@@ -1,7 +1,7 @@
 #ifndef TREENODE_H 
 # define TREENODE_H
 # include "listNode.hpp"
-
+class graphNode;
 
 class treeNode {
 	public:

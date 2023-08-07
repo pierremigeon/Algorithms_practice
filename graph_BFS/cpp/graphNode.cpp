@@ -3,46 +3,21 @@
 
 treeNode	*graphNode::cacheHead;
 
-listNode	*graphNode::copyList( listNode *l ) {
-	if ( l == NULL )
-		return l;
-	listNode	*head_original = l;
-	listNode	*copy = NULL;
-	listNode	*head_copy;
-
-	do {
-		if ( copy == NULL ) {
-			copy = new listNode(l->value);
-			copy->next = copy;
-			head_copy = copy;
-		}
-		else 
-			copy->next = new listNode(l->value);
-		copy = copy->next;
-		l = l->next;
-		if ( l == head_original )
-			copy->next = head_copy;
-	} while ( l != head_original );
-	return head_copy;
-}
-
 graphNode::graphNode( graphNode &g, int operation ) {
-	for ( int i = 0; i < 3; i++ )
+	for ( int i = 0; i < 4; i++ )
 		this->next[i] = NULL;
-	this->H1 = copyList(g.H1);
-	this->H2 = copyList(g.H2);
+	this->H1 = listNode::copyList(g.H1);
+	this->H2 = listNode::copyList(g.H2);
 	if ( operation == 0 || operation == 1 )
 		( operation == 0 ) ? listNode::shift(&this->H1) : listNode::shift(&this->H2);
 	else
 		( operation == 2 ) ? listNode::pushOrPop(&this->H2, &this->H1 ) \
 			: listNode::pushOrPop(&this->H1, &this->H2);
 	this->isSorted = listNode::checkSort(this->H1) && this->H2 == NULL;
-	this->del = treeNode::storeNode(&this->cacheHead, this->H1, this->H2) \
-			* !this->isSorted;
 }
 
 graphNode::graphNode( int list[], int len ) {
-	for ( int i = 0; i < 3; i++ )
+	for ( int i = 0; i < 4; i++ )
 		this->next[i] = NULL;
 	this->H1 = listNode::makeLinkedList(list, len);
 	this->H2 = NULL;
@@ -100,16 +75,36 @@ int	checkChange( graphNode *g, int operation) {
 	return ( 1 );
 }
 
+void	operateList( listNode **H1, listNode **H2, int operation ) {
+	if ( operation == 0 || operation == 1 )
+		( operation == 0 ) ? listNode::shift(H1) : listNode::shift(H2);
+	else
+		( operation == 2 ) ? listNode::pushOrPop(H2, H1 ) \
+			: listNode::pushOrPop(H1, H2);
+}
+
+int	checkUnique( graphNode *g, int operation ) {
+	bool		del = 1;
+	listNode 	*H1 = g->H1;
+	listNode 	*H2 = g->H2;
+
+	operateList(&H1, &H2, operation);
+	del = treeNode::storeNode(&graphNode::cacheHead, H1, H2);
+	operateList(&H2, &H1, ( operation < 2 ) ? !operation : operation);
+	return ( !del );
+}
+
 void	graphNode::graphify( graphNode *g ) {
 	listNode	*stack_head = new listNode(g);
 	listNode	*current;
 
 	while (stack_head) {
 		current = pop_stack(&stack_head);
+		//printList(current->g->H1, current->g->H2);
 		for ( int i = 0; i < 4; i++ ) {
-			if ( checkChange(current->g, i) ) {
+			if ( checkChange(current->g, i) && checkUnique( current->g, i ) ) {
 				current->g->next[i] = new graphNode ( *current->g, i );
-				if ( !( current->g->next[i]->isSorted || current->g->next[i]->del ) )
+				if ( !( current->g->next[i]->isSorted ) )
 					push_stack( &stack_head, current->g->next[i] );
 			}
 		}		

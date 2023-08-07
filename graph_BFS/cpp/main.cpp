@@ -2,11 +2,11 @@
 #include "graphNode.hpp"
 
 int	main() {
-	int length = 8;
+	int length = 15;
 	int	*list = generate_list(length);
 
-	//int length = 3;
-	//int list[] = { 69, 42, 2 };
+	//int length = 2;
+	//int list[] = { 2, 1 };
 	
 //	std::cout << "before sort: \n";
 //	print_list(length, list);
