@@ -5,8 +5,8 @@ int	main() {
 	int length = 8;
 	int	*list = generate_list(length);
 
-	//int length = 2;
-	//int list[] = { 69, 42 };
+	//int length = 3;
+	//int list[] = { 69, 42, 2 };
 	
 //	std::cout << "before sort: \n";
 //	print_list(length, list);

@@ -1,8 +1,8 @@
 #include "listNode.hpp"
 
-listNode::listNode( int _value ) : value(_value), next(NULL) { }
-listNode::listNode( void ) : value(0), next(NULL) { }
-
+listNode::listNode( int _value ) : value(_value), g(NULL), next(NULL) { }
+listNode::listNode( void ) : value(0), g(NULL), next(NULL) { }
+listNode::listNode( graphNode *node ) : value(0), g( node ), next(NULL) { }
 
 int	listNode::checkSort( listNode *head ) {
 	listNode	*start = head;

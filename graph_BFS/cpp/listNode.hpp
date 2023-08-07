@@ -6,9 +6,11 @@ class graphNode;
 class 	listNode {
 	public:
 	int		value;
+	graphNode	*g;
 	listNode	*next;
 	listNode( void );
 	listNode( int _value );
+	listNode( graphNode *node );
 
 	static	listNode	*makeLinkedList(int list[], int len);
 	static	int		checkListSorted(listNode *head);

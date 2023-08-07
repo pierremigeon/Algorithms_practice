@@ -31,10 +31,10 @@ graphNode::graphNode( graphNode &g, int operation ) {
 		this->next[i] = NULL;
 	this->H1 = copyList(g.H1);
 	this->H2 = copyList(g.H2);
-	if ( operation == 0 )
-		listNode::shift(&this->H1);
+	if ( operation == 0 || operation == 1 )
+		( operation == 0 ) ? listNode::shift(&this->H1) : listNode::shift(&this->H2);
 	else
-		( operation == 1 ) ? listNode::pushOrPop(&this->H2, &this->H1 ) \
+		( operation == 2 ) ? listNode::pushOrPop(&this->H2, &this->H1 ) \
 			: listNode::pushOrPop(&this->H1, &this->H2);
 	this->isSorted = listNode::checkSort(this->H1) && this->H2 == NULL;
 	this->del = treeNode::storeNode(&this->cacheHead, this->H1, this->H2) \
@@ -49,17 +49,6 @@ graphNode::graphNode( int list[], int len ) {
 	this->del = treeNode::storeNode(&this->cacheHead, this->H1, this->H2);
 	this->isSorted = check_sort(list, len);
 }
-
-/*
-int	checkCache( graphNode &g ) {
-	graphNode *head = &g.cacheHead;
-	while ( head ) {
-		if head->list = 
-		
-		head = ( )
-	}
-}
-*/
 
 void	printList( listNode *l1, listNode *l2 ) {
 	listNode *h1 = l1;
@@ -84,18 +73,47 @@ void	printList( listNode *l1, listNode *l2 ) {
 	}
 }
 
+listNode	*pop_stack(listNode **head ) {
+	listNode	*out = *head;
+
+	if ( *head )
+		*head = (*head)->next;
+	return ( out );
+}
+
+void	push_stack( listNode	**head, graphNode *g) {
+	listNode	*add_to_stack = new listNode(g);
+
+	add_to_stack->next = *head;
+	*head = add_to_stack;
+}
+
+int	checkChange( graphNode *g, int operation) {
+	if ( operation == 0 && ( g->H1 == NULL || g->H1->next == g->H1 ) )
+		return ( 0 );
+	if ( operation == 1 && ( g->H2 == NULL || g->H2->next == g->H2 ) )
+		return ( 0 );
+	if ( operation == 2 && g->H1 == NULL)
+		return ( 0 );
+	if ( operation == 3 && g->H2 == NULL)
+		return ( 0 );
+	return ( 1 );
+}
+
 void	graphNode::graphify( graphNode *g ) {
+	listNode	*stack_head = new listNode(g);
+	listNode	*current;
 
-	for ( int i = 0; i < 3 && g->isSorted == 0 && g->del == 0; i++ ) {
-		printList ( g->H1, g->H2 );
-		g->next[i] = new graphNode ( *g, i );
-		graphify ( g->next[i] );
+	while (stack_head) {
+		current = pop_stack(&stack_head);
+		for ( int i = 0; i < 4; i++ ) {
+			if ( checkChange(current->g, i) ) {
+				current->g->next[i] = new graphNode ( *current->g, i );
+				if ( !( current->g->next[i]->isSorted || current->g->next[i]->del ) )
+					push_stack( &stack_head, current->g->next[i] );
+			}
+		}		
 	}
-	//if ( g->isSorted )
-	//	printList ( g->H1, g->H2 );
-	if ( g->del == 1 )
-		delete g;
-
 }
 
 void	graphNode::graph( int list[], int len ) {
