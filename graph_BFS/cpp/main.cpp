@@ -2,7 +2,7 @@
 #include "graphNode.hpp"
 
 int	main() {
-	int length = 15;
+	int length = 5;
 	int	*list = generate_list(length);
 
 	//int length = 2;

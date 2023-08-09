@@ -88,6 +88,8 @@ int	checkUnique( graphNode *g, int operation ) {
 	listNode 	*H1 = g->H1;
 	listNode 	*H2 = g->H2;
 
+	if ( g->isSorted )
+		return ( 0 );
 	operateList(&H1, &H2, operation);
 	del = treeNode::storeNode(&graphNode::cacheHead, H1, H2);
 	operateList(&H2, &H1, ( operation < 2 ) ? !operation : operation);
@@ -100,7 +102,6 @@ void	graphNode::graphify( graphNode *g ) {
 
 	while (stack_head) {
 		current = pop_stack(&stack_head);
-		//printList(current->g->H1, current->g->H2);
 		for ( int i = 0; i < 4; i++ ) {
 			if ( checkChange(current->g, i) && checkUnique( current->g, i ) ) {
 				current->g->next[i] = new graphNode ( *current->g, i );
