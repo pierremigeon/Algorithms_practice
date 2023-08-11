@@ -8,11 +8,11 @@ void	deleteTree( tNode *head ) {
 	delete head;
 }
 
-void	makeBinaryTree(int	array[], int size, tNode *head) {
+void	makeBinaryTree(int array[], int size, tNode *head) {
 	tNode *current = head;
 	tNode *last;
 
-	for ( int i = 1; i < size; i++ ) {
+	for ( int i = 0; i < size; i++ ) {
 		current = head;
 		while ( current ) {
 			last = current;
