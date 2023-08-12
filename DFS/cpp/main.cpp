@@ -1,6 +1,7 @@
 #include "TreeNode.hpp"
 #include "list_funcs.hpp"
 #include "BinaryTreeFuncs.hpp"
+#include "LinkNode.hpp"
 
 void	postOrder(tNode *head) {
 	if ( head == NULL )
@@ -16,6 +17,36 @@ void	inOrder(tNode *head) {
 	inOrder(head->left);
 	std::cout << head->value << std::endl;
 	inOrder(head->right);
+}
+
+void	addQueue(treeNode *node, linkNode **qTail) {
+	*tail->next = node;
+	*tail = node;
+}
+
+linkNode	*popQueue( linkNode **qHead) {
+	linkNode	*out;
+
+	out = *qUhead;
+	*qHead = *qHead->next;
+	return ( out );
+}
+
+void	inOrder_it(tNode *head) {
+	linkNode	*queueHead;
+	linkNode	*queueTail;
+
+	queueHead->leaf = queueTail->leaf = head;
+	while ( queueHead ) {
+		addQueue(head, &queueTail);
+		if ( head->left )
+			head = head->left;
+		else {
+			std::cout << head->value << std::endl;
+			if ( head->right )
+				head = head->right;
+		}
+	}
 }
 
 void	preOrder(tNode *head) {
