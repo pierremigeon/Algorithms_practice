@@ -19,32 +19,28 @@ void	inOrder(tNode *head) {
 	inOrder(head->right);
 }
 
-void	addQueue(treeNode *node, linkNode **qTail) {
-	*tail->next = node;
-	*tail = node;
+void	pushStack(treeNode *node, linkNode **qTail) {
 }
 
-linkNode	*popQueue( linkNode **qHead) {
-	linkNode	*out;
-
-	out = *qUhead;
-	*qHead = *qHead->next;
-	return ( out );
+tNode	*popStack( linkNode **qHead) {
 }
 
-void	inOrder_it(tNode *head) {
-	linkNode	*queueHead;
-	linkNode	*queueTail;
+void	inOrder_it(tNode *current) {
+	linkNode	*stack;
 
-	queueHead->leaf = queueTail->leaf = head;
-	while ( queueHead ) {
-		addQueue(head, &queueTail);
-		if ( head->left )
-			head = head->left;
-		else {
+	while ( stack->leaf || current) {
+		if (!current->left && !current->right ) {
 			std::cout << head->value << std::endl;
-			if ( head->right )
-				head = head->right;
+			current = popStack(&stack);
+		} else {
+			addStack(current, &stack);
+			if ( current->left )
+				current = current->left;
+			else {
+				std::cout << current->value << std::endl;
+				if ( current->right )
+					current = current->right;
+			}
 		}
 	}
 }
