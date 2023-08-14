@@ -44,8 +44,8 @@ int	notVisited( linkNode *visited, tNode *current ) {
 	return ( 1 );
 }
 
-tNode	*updateCurrent( tNode *current, linkNode **stack ) {
-	if ( current->left )
+tNode	*updateCurrent( tNode *current, linkNode **stack, linkNode *visited ) {
+	if ( current->left && notVisited( visited, current->left ))
 		return ( current->left );
 	std::cout << current->value << std::endl;
 	return ( current->right ? current->right : popStack(stack));
@@ -68,27 +68,14 @@ void	inOrder_it(tNode *current) {
 	linkNode	*visited = NULL;
 
 	while ( stack || current ) {
-		if (notVisited(visited, current)) {
+		if ( notVisited(visited, current) ) {
 			if ( current->left )
 				pushStack(&stack, current);
 			visit(&visited, current);
 		}
-		current = updateCurrent(current, &stack);
+		current = updateCurrent(current, &stack, visited);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 void	preOrder(tNode *head) {
 	if ( head == NULL )
@@ -111,7 +98,7 @@ void	DFS_inOrder(tNode *head, int query) {
 }
 
 int	main() {
-	int length = 10;
+	int length = 1;
 	int	*list = generate_list(length);
 	for ( int i = 0; i < length; i++ )
 		std::cout << list[i] << std::endl;
@@ -120,15 +107,20 @@ int	main() {
 
 	makeBinaryTree(list, length, head);	
 
+	tNode *head2 = new tNode(2);
+	head2->left = new tNode(1);
+	head2->right = new tNode(3);
+	head2->left->left = new tNode(0);
+
 	//int value = list[4];
 	//DFS_inOrder(head, value);
 
 	//std::cout << "\nPreorder: " << std::endl;
 	//preOrder(head);
 	std::cout << "\nInorder: " << std::endl;
-	inOrder(head);
+	inOrder(head2);
 	std::cout << "\nInorder iterative: " << std::endl;
-	inOrder_it(head);
+	inOrder_it(head2);
 	//std::cout << "\nPostorder: " << std::endl;
 	//postOrder(head);	
 
