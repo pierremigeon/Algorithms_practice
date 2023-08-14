@@ -1,4 +1,3 @@
-#include "TreeNode.hpp"
 #include "list_funcs.hpp"
 #include "BinaryTreeFuncs.hpp"
 #include "LinkNode.hpp"
@@ -19,29 +18,48 @@ void	inOrder(tNode *head) {
 	inOrder(head->right);
 }
 
-void	pushStack(treeNode *node, linkNode **qTail) {
+void	pushStack(tNode *node, linkNode **sHead, LinkNode **visited) {
+	linkNode 	*top = new linkNode(node);
+	top->next = *sHead;
+	*sHead = top;
 }
 
-tNode	*popStack( linkNode **qHead) {
+tNode	*popStack( linkNode **sHead ) {
+	tNode	*out;
+
+	if (!*sHead)
+		return ( NULL );
+	out = (*sHead)->leaf;
+	*sHead = (*sHead)->next;
+	return ( out );
+}
+
+tNode	*updateCurrent( tNode *current, linkNode *stack ) {
+	if ( current->left )
+		return ( current->left );
+	std::cout << current->value << std::endl;
+	return ( current->right ? current->right : popStack(&stack));
+}
+
+int	notVisited( linkNode *visited, tNode *current ) {
+	while ( visited ) {
+		if ( visited->leaf == current )
+			return ( 0 );
+		visited = visited->next;
+	}
+	return ( 1 );
 }
 
 void	inOrder_it(tNode *current) {
-	linkNode	*stack;
+	linkNode	*stack = NULL;
+	linkNode	*visited = NULL;
 
-	while ( stack->leaf || current) {
-		if (!current->left && !current->right ) {
-			std::cout << head->value << std::endl;
-			current = popStack(&stack);
-		} else {
-			addStack(current, &stack);
-			if ( current->left )
-				current = current->left;
-			else {
-				std::cout << current->value << std::endl;
-				if ( current->right )
-					current = current->right;
-			}
+	while ( stack || current ) {
+		if (notVisited(visited, current)) {
+			pushStack(current, &stack);
+			visit(current, &visited);
 		}
+		current = updateCurrent(current, stack);
 	}
 }
 
@@ -75,15 +93,17 @@ int	main() {
 
 	makeBinaryTree(list, length, head);	
 
-	int value = list[4];
-	DFS_inOrder(head, value);
+	//int value = list[4];
+	//DFS_inOrder(head, value);
 
-	std::cout << "\nPreorder: " << std::endl;
-	preOrder(head);
+	//std::cout << "\nPreorder: " << std::endl;
+	//preOrder(head);
 	std::cout << "\nInorder: " << std::endl;
 	inOrder(head);
-	std::cout << "\nPostorder: " << std::endl;
-	postOrder(head);	
+	std::cout << "\nInorder iterative: " << std::endl;
+	inOrder_it(head);
+	//std::cout << "\nPostorder: " << std::endl;
+	//postOrder(head);	
 
 	return (0);
 }

@@ -1,5 +1,6 @@
 # ifndef TREENODE_H
 # define TREENODE_H
+# include <iostream>
 
 class tNode {
 	public:
@@ -8,7 +9,7 @@ class tNode {
 	tNode	*right;
 
 	tNode( void );
-	tNode( int _value) : value(_value) { }
+	tNode( int _value);
 };
 
 #endif

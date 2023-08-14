@@ -6,8 +6,8 @@ class linkNode {
 	public:
 	tNode		*leaf;
 	linkNode	*next;
+	linkNode( void );
+	linkNode( tNode	*_leaf );
 };
-
-linkNode::linkNode( void ) : leaf(NULL), next(NULL) { }
 
 #endif
