@@ -18,8 +18,9 @@ void	inOrder(tNode *head) {
 	inOrder(head->right);
 }
 
-void	pushStack(tNode *node, linkNode **sHead, LinkNode **visited) {
-	linkNode 	*top = new linkNode(node);
+void	pushStack(linkNode **sHead, tNode *node) {
+	linkNode *top = new linkNode(node);
+
 	top->next = *sHead;
 	*sHead = top;
 }
@@ -34,13 +35,6 @@ tNode	*popStack( linkNode **sHead ) {
 	return ( out );
 }
 
-tNode	*updateCurrent( tNode *current, linkNode *stack ) {
-	if ( current->left )
-		return ( current->left );
-	std::cout << current->value << std::endl;
-	return ( current->right ? current->right : popStack(&stack));
-}
-
 int	notVisited( linkNode *visited, tNode *current ) {
 	while ( visited ) {
 		if ( visited->leaf == current )
@@ -50,18 +44,51 @@ int	notVisited( linkNode *visited, tNode *current ) {
 	return ( 1 );
 }
 
+tNode	*updateCurrent( tNode *current, linkNode **stack ) {
+	if ( current->left )
+		return ( current->left );
+	std::cout << current->value << std::endl;
+	return ( current->right ? current->right : popStack(stack));
+}
+
+void	visit( linkNode **visited, tNode *currentT ) {
+	linkNode	*visit = *visited;
+
+	if ( *visited == NULL ) {
+		*visited = new linkNode( currentT );
+		return ;
+	}
+	while ( visit->next )
+		visit = visit->next;
+	visit->next = new linkNode(currentT);
+}
+
 void	inOrder_it(tNode *current) {
 	linkNode	*stack = NULL;
 	linkNode	*visited = NULL;
 
 	while ( stack || current ) {
 		if (notVisited(visited, current)) {
-			pushStack(current, &stack);
-			visit(current, &visited);
+			if ( current->left )
+				pushStack(&stack, current);
+			visit(&visited, current);
 		}
-		current = updateCurrent(current, stack);
+		current = updateCurrent(current, &stack);
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void	preOrder(tNode *head) {
 	if ( head == NULL )
@@ -84,7 +111,7 @@ void	DFS_inOrder(tNode *head, int query) {
 }
 
 int	main() {
-	int length = 5;
+	int length = 10;
 	int	*list = generate_list(length);
 	for ( int i = 0; i < length; i++ )
 		std::cout << list[i] << std::endl;
