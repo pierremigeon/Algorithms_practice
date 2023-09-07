@@ -21,3 +21,12 @@ int	check_sort( int list[], int len ) {
 			return (1);
 	return (0);
 }
+
+void	swap(int **a, int **b) {
+	int temp;
+
+	temp = **a;
+	**a = **b;
+	**b = temp;
+}
+

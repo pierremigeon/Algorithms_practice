@@ -1,8 +1,7 @@
 #ifndef QUICK_H
 # define QUICK_H
 
-void		quickSort(int **list, int len);
-void		partition(int	**list, int len);
-
+int	partition(int list, int left, int right, int pivot);
+void	quickSort(int *list, int i, int j);
 
 #endif

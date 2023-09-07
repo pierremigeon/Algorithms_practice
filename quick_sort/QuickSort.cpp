@@ -1,6 +1,4 @@
-
-
-#incude "QuickSort.hpp"
+#include "QuickSort.hpp"
 
 void	swap(int **a, int **b) {
 	int temp;
@@ -10,22 +8,25 @@ void	swap(int **a, int **b) {
 	*b = temp;
 }
 
+int	partition(int list, int left, int right, int pivot) {
+	while ( i < j ) {
+		if ( list[i] > list[pivot] && list[j] < list[pivot] )
+			swap(&list[i], &list[j]);
+		while ( list[i] < list[pivot] )
+			++i;
+		while ( list[j] > list[pivot] )
+			--j;
+	}
+	swap(&list[j], &list[pivot])
+}
+
 void	quickSort(int *list, int i, int j) {
+	int pivot;
 	if ( i > j || i == j )
 		return;
-	int part = j;
-	j -= 1;
-	while ( i < j ) {
-		if ( list[i] > list[part] && list[j] < list[part] )
-			swap(&list[i], &list[j]);
-		while ( list[i] < list[part] )
-			++i;
-		while ( list[j] > list[part] )
-			--j;
-	} 
-	swap(list[i], list[part]);
-	quickSort(list, i, j);
-	quickSort(list, len, part, j);
+	pivot = partition(list, i, j - 1, j);
+	quickSort(list, i, pivot - 1);
+	quickSort(list, pivot + 1, j);
 }
 
 
