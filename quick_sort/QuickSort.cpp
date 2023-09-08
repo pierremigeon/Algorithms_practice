@@ -1,23 +1,16 @@
 #include "QuickSort.hpp"
 
-void	swap(int **a, int **b) {
-	int temp;
-
-	temp = **a;
-	*a = *b;
-	*b = temp;
-}
-
-int	partition(int list, int left, int right, int pivot) {
-	while ( i < j ) {
-		if ( list[i] > list[pivot] && list[j] < list[pivot] )
-			swap(&list[i], &list[j]);
-		while ( list[i] < list[pivot] )
-			++i;
-		while ( list[j] > list[pivot] )
-			--j;
+int	partition(int *list, int left, int right, int pivot) {
+	while ( left < right ) {
+		if ( list[left] > list[pivot] && list[right] < list[pivot] )
+			swap(&list[left], &list[right]);
+		while ( list[left] < list[pivot] )
+			++left;
+		while ( right > left && list[right] > list[pivot] )
+			--right;
 	}
-	swap(&list[j], &list[pivot])
+	swap(&list[right], &list[pivot]);
+	return pivot;
 }
 
 void	quickSort(int *list, int i, int j) {
@@ -28,5 +21,3 @@ void	quickSort(int *list, int i, int j) {
 	quickSort(list, i, pivot - 1);
 	quickSort(list, pivot + 1, j);
 }
-
-

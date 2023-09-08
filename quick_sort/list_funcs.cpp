@@ -22,11 +22,11 @@ int	check_sort( int list[], int len ) {
 	return (0);
 }
 
-void	swap(int **a, int **b) {
+void	swap(int *a, int *b) {
 	int temp;
 
-	temp = **a;
-	**a = **b;
-	**b = temp;
+	temp = *a;
+	*a = *b;
+	*b = temp;
 }
 
