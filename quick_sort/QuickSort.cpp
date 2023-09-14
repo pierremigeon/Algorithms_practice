@@ -1,5 +1,20 @@
 #include "QuickSort.hpp"
 
+int	partition2(int *list, int left, int right) {
+	int pivot = list[right];
+
+	while ( left < right ) {
+		while ( left < right && list[left] < pivot )
+			left++;
+		while ( right > left && list[right] > pivot)
+			right--;
+		if ( list[left] > pivot )
+			swap(&list[left], &list[right]);
+	}
+	#correct this thinggy
+	swap(&list[left], &list[pivot]);
+}
+
 int	partition(int *list, int left, int right) {
 	int pivot = list[right];
 	--left;
